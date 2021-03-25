@@ -124,7 +124,8 @@ INNER JOIN dept_emp ON employees.emp_no=dept_emp.emp_no
 INNER JOIN departments ON dept_emp.dept_no=departments.dept_no
 WHERE dept_name = 'Sales' OR dept_name = 'Development';
 
-SELECT last_name, (last_name) AS "names"
+SELECT last_name, COUNT (last_name) 
 FROM employees
-GROUP BY last_name
-SELECT COUNT (employees.last_names);
+GROUP BY last_name;
+
+
