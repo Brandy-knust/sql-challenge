@@ -5,6 +5,7 @@ CREATE TABLE "departments" (
         "dept_no"
      )
 );
+
 SELECT *
 FROM departments;
 
@@ -86,3 +87,44 @@ ALTER TABLE "salaries" ADD CONSTRAINT "fk_salaries_emp_no" FOREIGN KEY("emp_no")
 REFERENCES "employees" ("emp_no");
 
 
+SELECT *
+FROM employees;
+
+SELECT employees.emp_no, employees.last_name, employees.first_name, employees.sex, salaries.salary
+FROM employees
+INNER JOIN salaries on employees.emp_no=salaries.emp_no;
+
+SELECT first_name, last_name, hire_date
+FROM employees
+WHERE hire_date >='1986-01-01' AND hire_date <'1987-01-01';
+
+SELECT dept_manager.dept_no, dept_manager.emp_no, departments.dept_name, employees.first_name, employees.last_name
+FROM dept_manager
+INNER JOIN departments on dept_manager.dept_no=departments.dept_no
+INNER JOIN employees on employees.emp_no=dept_manager.emp_no;
+
+SELECT employees.emp_no, employees.first_name, employees.last_name, departments.dept_name
+FROM employees
+INNER JOIN dept_emp ON employees.emp_no=dept_emp.emp_no
+INNER JOIN departments ON dept_emp.dept_no=departments.dept_no;
+
+SELECT employees.first_name, employees.last_name, employees.sex
+FROM employees
+WHERE first_name = 'Hercules' AND last_name LIKE 'B%'
+
+SELECT employees.emp_no, employees.last_name, employees.first_name, departments.dept_name
+FROM employees
+INNER JOIN dept_emp ON employees.emp_no=dept_emp.emp_no
+INNER JOIN departments ON dept_emp.dept_no=departments.dept_no
+WHERE dept_name = 'Sales';
+
+SELECT employees.emp_no, employees.last_name, employees.first_name, departments.dept_name
+FROM employees
+INNER JOIN dept_emp ON employees.emp_no=dept_emp.emp_no
+INNER JOIN departments ON dept_emp.dept_no=departments.dept_no
+WHERE dept_name = 'Sales' OR dept_name = 'Development';
+
+SELECT last_name, (last_name) AS "names"
+FROM employees
+GROUP BY last_name
+SELECT COUNT (employees.last_names);
